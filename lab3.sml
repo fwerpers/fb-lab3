@@ -4,10 +4,19 @@
     PRE: true
     POST: returns the average of the elemnts of l
 *)
-fun average l = 1.0;
+(* VARIANT: length of l *)
+fun average [] = 0.0
+  | average l =
+    let
+        fun helper sum n [] = sum/real(n)
+          | helper sum n (x::xs) = helper (sum + x) (n+1) xs;
+    in
+        helper 0.0 0 l
+    end;
 
 (* Use of Higher-Order Functions *)
-fun append a b = [];
+(* See http://sml-family.org/Basis/list.html#LIST:SIG:SPEC *)
+fun append l1 l2 = foldr (fn (head, tail) => head::tail) l2 l1;
 fun member a b = true;
 fun last (x::xs) = x;
 fun reverse l = l;
