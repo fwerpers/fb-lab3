@@ -17,7 +17,8 @@ fun average [] = 0.0
 (* Use of Higher-Order Functions *)
 (* See http://sml-family.org/Basis/list.html#LIST:SIG:SPEC *)
 fun append l1 l2 = foldr (fn (head, tail) => head::tail) l2 l1;
-fun member a b = true;
+
+fun member a l = foldr (fn (head, tail) => head=a orelse tail) false l;
 fun last (x::xs) = x;
 fun reverse l = l;
 fun filter f l = l;
