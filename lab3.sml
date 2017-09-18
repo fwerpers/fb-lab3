@@ -4,7 +4,7 @@
     PRE: true
     POST: returns the average of the elemnts of l
 *)
-(* VARIANT: length of l *)
+(*  VARIANT: length of l *)
 fun average [] = 0.0
   | average l =
     let
