@@ -19,7 +19,8 @@ fun average [] = 0.0
 fun append l1 l2 = foldr (fn (head, tail) => head::tail) l2 l1;
 
 fun member a l = foldr (fn (head, tail) => head=a orelse tail) false l;
-fun last (x::xs) = x;
+
+fun last (x::xs) = foldl (fn (head, tail) => head) x xs;
 fun reverse l = l;
 fun filter f l = l;
 
