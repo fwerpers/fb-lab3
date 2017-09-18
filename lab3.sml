@@ -24,7 +24,7 @@ fun last (x::xs) = foldl (fn (head, tail) => head) x xs;
 
 fun reverse l = foldl (fn (head, tail) => head::tail) [] l;
 
-fun filter f l = l;
+fun filter f l = foldr (fn (head, tail) => if f head then head::tail else tail) [] l;
 
 (* Binary Search Trees *)
 datatype tree = Void | Node of tree * int * tree;
