@@ -29,6 +29,38 @@ fun filter f l = foldr (fn (head, tail) => if f head then head::tail else tail) 
 (* Binary Search Trees *)
 datatype tree = Void | Node of tree * int * tree;
 
-fun sub_tree a b t = t;
+(*
+Idea 1: Build an un-balanced tree "in-argument"
+How would we do this?
+Idea 2: Have a build_tree function that builds an un-balanced tree.
+This would have to recurse down the tree every time we add a key.
+*)
+(* What's the variant? *)
+
+(* val ex1 = Node(Node(Node(Void, 0, Node(Void, 2, Void)), 3, Node(Void, 5, Void)), 6, Node(Void, 7, Node(Void, 8, Node(Void, 9, Node(Node(Void, 10, Void), 12, Node(Void, 15, Node(Void, 19, Void))))))) *)
+
+fun combine tree merge_tree =
+let
+    fun helper Void = merge_tree
+      | helper (Node (Void, key, right)) = Node (merge_tree, key, right)
+      | helper (Node (left, key, Void)) = Node (left, key, merge_tree)
+      | helper (Node (left, key, right)) = helper left
+in
+    helper tree
+end;
+
+fun sub_tree a b t =
+let
+    fun helper Void = Void
+      | helper (Node (left, key, right)) = 
+        if a <= key andalso key < b then
+            (* Return current node with left and right subtree *)
+            Node (helper left, key, helper right)
+        else
+            (* Return combination of left and right subtree without current node *)
+            combine (helper left) (helper right)
+in
+    helper t
+end;
 
 (* Complexity *)
