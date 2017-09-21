@@ -49,13 +49,16 @@ in
     helper tree
 end; *)
 
-fun combine tree merge_tree =
+(* fun combine tree merge_tree =
 let
     fun helper Void = merge_tree
       | helper (Node (left, key, right)) = Node (helper left, key, right)
 in
     helper tree
-end;
+end; *)
+
+fun combine merge_tree Void = merge_tree
+  | combine merge_tree (Node (left, key, right)) = Node (combine merge_tree left, key, right);
 
 fun sub_tree a b t =
 let
